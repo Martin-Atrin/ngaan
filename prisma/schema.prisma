@@ -1,0 +1,346 @@
+// Prisma schema for Ngaan family task management
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Family group that contains parents and children
+model Family {
+  id           String   @id @default(cuid())
+  lineGroupId  String?  @unique @map("line_group_id") // LINE group chat ID
+  name         String?  @default("My Family")
+  settings     Json?    // Family-specific settings
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  users        User[]
+  tasks        Task[]
+  rewardPools  FamilyRewardPool[]
+  
+  @@map("families")
+}
+
+// User types: parent or child
+enum UserRole {
+  PARENT
+  CHILD
+}
+
+// Individual family member
+model User {
+  id             String    @id @default(cuid())
+  lineUserId     String    @unique @map("line_user_id") // LINE user ID
+  familyId       String    @map("family_id")
+  role           UserRole
+  displayName    String    @map("display_name")
+  pictureUrl     String?   @map("picture_url")
+  walletAddress  String?   @map("wallet_address") // Kaia wallet address
+  dateOfBirth    DateTime? @map("date_of_birth")
+  preferences    Json?     // User preferences and settings
+  isActive       Boolean   @default(true) @map("is_active")
+  lastLoginAt    DateTime? @map("last_login_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  family              Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  createdTasks        Task[]               @relation("TaskCreator")
+  assignedTasks       Task[]               @relation("TaskAssignee")
+  submissions         TaskSubmission[]
+  approvals           TaskApproval[]
+  transactions        Transaction[]
+  achievements        Achievement[]
+  savingsGoals        SavingsGoal[]
+  expenses            Expense[]
+  
+  @@map("users")
+  @@index([familyId])
+  @@index([lineUserId])
+}
+
+// Task status progression
+enum TaskStatus {
+  DRAFT      // Created but not assigned
+  ASSIGNED   // Assigned to child
+  IN_PROGRESS // Child started working
+  SUBMITTED  // Child submitted proof
+  APPROVED   // Parent approved
+  REJECTED   // Parent rejected
+  COMPLETED  // Reward distributed
+  EXPIRED    // Past deadline
+}
+
+// Task difficulty affects reward amount
+enum TaskDifficulty {
+  EASY     // 1-2 KAIA
+  MEDIUM   // 3-5 KAIA
+  HARD     // 6-10 KAIA
+}
+
+// Task category for organization
+enum TaskCategory {
+  CLEANING
+  STUDYING
+  OUTDOOR
+  PERSONAL_CARE
+  COOKING
+  ORGANIZING
+  PET_CARE
+  OTHER
+}
+
+// Core task entity
+model Task {
+  id              String         @id @default(cuid())
+  familyId        String         @map("family_id")
+  createdById     String         @map("created_by_id")
+  assignedToId    String?        @map("assigned_to_id")
+  title           String
+  description     String?
+  instructions    String?        // Detailed instructions
+  category        TaskCategory   @default(OTHER)
+  difficulty      TaskDifficulty @default(MEDIUM)
+  rewardAmount    Int           @map("reward_amount") // in KAIA wei
+  estimatedTime   Int?          @map("estimated_time") // in minutes
+  status          TaskStatus     @default(DRAFT)
+  priority        Int           @default(1) // 1-5 priority scale
+  dueDate         DateTime?     @map("due_date")
+  completedAt     DateTime?     @map("completed_at")
+  isRecurring     Boolean       @default(false) @map("is_recurring")
+  recurringConfig Json?         @map("recurring_config") // Recurring settings
+  metadata        Json?         // Additional task metadata
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  family       Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  createdBy    User             @relation("TaskCreator", fields: [createdById], references: [id])
+  assignedTo   User?            @relation("TaskAssignee", fields: [assignedToId], references: [id])
+  submissions  TaskSubmission[]
+  approvals    TaskApproval[]
+  transactions Transaction[]
+  attachments  TaskAttachment[]
+
+  @@map("tasks")
+  @@index([familyId])
+  @@index([assignedToId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+// Task attachments (instruction images/videos)
+model TaskAttachment {
+  id       String @id @default(cuid())
+  taskId   String @map("task_id")
+  filename String
+  fileUrl  String @map("file_url")
+  fileSize Int    @map("file_size")
+  mimeType String @map("mime_type")
+  
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  @@map("task_attachments")
+  @@index([taskId])
+}
+
+// Child's task completion submission
+model TaskSubmission {
+  id           String    @id @default(cuid())
+  taskId       String    @map("task_id")
+  submittedById String   @map("submitted_by_id")
+  photoUrls    String[]  @map("photo_urls")
+  notes        String?
+  submittedAt  DateTime  @default(now()) @map("submitted_at")
+  metadata     Json?     // Additional submission data
+
+  // Relations
+  task         Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  submittedBy  User           @relation(fields: [submittedById], references: [id])
+  approvals    TaskApproval[]
+
+  @@map("task_submissions")
+  @@index([taskId])
+  @@index([submittedById])
+}
+
+// Parent's approval/rejection of submission
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  NEEDS_REVISION
+}
+
+model TaskApproval {
+  id           String         @id @default(cuid())
+  submissionId String         @map("submission_id")
+  taskId       String         @map("task_id")
+  approvedById String         @map("approved_by_id")
+  status       ApprovalStatus @default(PENDING)
+  comments     String?
+  rating       Int?           // 1-5 quality rating
+  approvedAt   DateTime       @default(now()) @map("approved_at")
+
+  // Relations
+  submission Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskSubmission TaskSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  approvedBy User           @relation(fields: [approvedById], references: [id])
+
+  @@map("task_approvals")
+  @@index([submissionId])
+  @@index([taskId])
+  @@index([approvedById])
+}
+
+// Blockchain transaction tracking
+enum TransactionStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  CANCELLED
+}
+
+enum TransactionType {
+  TASK_REWARD
+  BONUS_PAYMENT
+  ALLOWANCE
+  FAMILY_CONTRIBUTION
+}
+
+model Transaction {
+  id              String            @id @default(cuid())
+  taskId          String?           @map("task_id") // Optional, for task rewards
+  userId          String            @map("user_id") // Recipient
+  type            TransactionType
+  amount          String            // KAIA amount as string (to handle big numbers)
+  txHash          String?           @map("tx_hash") // Blockchain transaction hash
+  blockNumber     BigInt?           @map("block_number")
+  status          TransactionStatus @default(PENDING)
+  gasUsed         String?           @map("gas_used")
+  gasFee          String?           @map("gas_fee")
+  fromAddress     String            @map("from_address")
+  toAddress       String            @map("to_address")
+  metadata        Json?
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  confirmedAt     DateTime?         @map("confirmed_at")
+
+  // Relations
+  task Task? @relation(fields: [taskId], references: [id])
+  user User  @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+  @@index([userId])
+  @@index([taskId])
+  @@index([txHash])
+  @@index([status])
+}
+
+// Family reward pool for contributions
+model FamilyRewardPool {
+  id              String   @id @default(cuid())
+  familyId        String   @map("family_id")
+  name            String   @default("Family Reward Pool")
+  balance         String   @default("0") // KAIA amount as string
+  contributorInfo Json?    @map("contributor_info") // Who contributed how much
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@map("family_reward_pools")
+  @@index([familyId])
+}
+
+// Achievement system for gamification
+enum AchievementType {
+  TASK_STREAK      // Consecutive days/weeks
+  TASK_COUNT       // Total tasks completed
+  CATEGORY_MASTER  // Expert in specific category
+  EARLY_BIRD       // Complete before deadline
+  PERFECTIONIST    // High rating average
+  SAVER           // Savings goal achievements
+  HELPER          // Help family members
+  CONSISTENT      // Regular completion pattern
+}
+
+model Achievement {
+  id          String          @id @default(cuid())
+  userId      String          @map("user_id")
+  type        AchievementType
+  title       String
+  description String
+  iconUrl     String?         @map("icon_url")
+  badgeLevel  Int            @default(1) @map("badge_level") // Bronze=1, Silver=2, Gold=3
+  progress    Int            @default(0) // Current progress
+  target      Int            @default(1) // Target to achieve
+  isEarned    Boolean        @default(false) @map("is_earned")
+  earnedAt    DateTime?      @map("earned_at")
+  metadata    Json?          // Achievement-specific data
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
+  @@index([userId])
+  @@index([type])
+  @@index([isEarned])
+}
+
+// Savings goals for financial literacy
+model SavingsGoal {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  title         String
+  description   String?
+  targetAmount  String    @map("target_amount") // KAIA amount as string
+  currentAmount String    @default("0") @map("current_amount")
+  deadline      DateTime?
+  isCompleted   Boolean   @default(false) @map("is_completed")
+  completedAt   DateTime? @map("completed_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("savings_goals")
+  @@index([userId])
+}
+
+// Expense tracking for budgeting
+enum ExpenseCategory {
+  FOOD
+  ENTERTAINMENT
+  EDUCATION
+  TOYS
+  CLOTHES
+  GIFTS
+  SAVINGS
+  OTHER
+}
+
+model Expense {
+  id          String          @id @default(cuid())
+  userId      String          @map("user_id")
+  title       String
+  description String?
+  amount      String          // KAIA amount as string
+  category    ExpenseCategory @default(OTHER)
+  date        DateTime        @default(now())
+  receiptUrl  String?         @map("receipt_url")
+  metadata    Json?
+  createdAt   DateTime        @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("expenses")
+  @@index([userId])
+  @@index([category])
+  @@index([date])
+}

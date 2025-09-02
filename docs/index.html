@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngaan - Family Task Manager with Blockchain Rewards</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🏆</span>
+                <span class="logo-text">Ngaan</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#tech" class="nav-link">Technology</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-mobile-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-particle" style="--delay: 0s; --duration: 20s;"></div>
+            <div class="hero-particle" style="--delay: -5s; --duration: 25s;"></div>
+            <div class="hero-particle" style="--delay: -10s; --duration: 15s;"></div>
+            <div class="hero-particle" style="--delay: -15s; --duration: 30s;"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    LINE Mini App • Blockchain Powered
+                </div>
+                <h1 class="hero-title">
+                    Making <span class="highlight">Family Chores</span> Fun with 
+                    <span class="highlight">Blockchain Rewards</span>
+                </h1>
+                <p class="hero-description">
+                    Ngaan transforms household task management into an engaging, gamified experience. 
+                    Parents create tasks, children complete them with photo proof, and everyone earns 
+                    KAIA cryptocurrency automatically.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="demo-btn">
+                        <span>View Live Demo</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                            <path d="M15 3h6v6"></path>
+                            <path d="M10 14L21 3"></path>
+                        </svg>
+                    </button>
+                    <button class="btn btn-secondary" id="github-btn">
+                        <span>GitHub Repository</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-preview">
+                            <div class="app-header">
+                                <div class="app-title">My Tasks</div>
+                                <div class="app-coins">85 KAIA</div>
+                            </div>
+                            <div class="task-card completed">
+                                <div class="task-icon">🧹</div>
+                                <div class="task-content">
+                                    <div class="task-title">Clean bedroom</div>
+                                    <div class="task-reward">+3 KAIA</div>
+                                </div>
+                                <div class="task-check">✓</div>
+                            </div>
+                            <div class="task-card pending">
+                                <div class="task-icon">🍽️</div>
+                                <div class="task-content">
+                                    <div class="task-title">Wash dishes</div>
+                                    <div class="task-reward">+2 KAIA</div>
+                                </div>
+                                <div class="task-timer">2h left</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">Target Families</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="85">0</div>
+                    <div class="stat-label">Completion Rate %</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Development Weeks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99.9">0</div>
+                    <div class="stat-label">Uptime Target %</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Features</div>
+                <h2 class="section-title">Everything Your Family Needs</h2>
+                <p class="section-description">
+                    Comprehensive tools to manage household tasks, track progress, and reward responsibility.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 12l2 2 4-4"></path>
+                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"></path>
+                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"></path>
+                            <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"></path>
+                            <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Task Management</h3>
+                    <p class="feature-description">
+                        Create, assign, and track household tasks with customizable categories, difficulty levels, and reward amounts.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Pre-defined task templates</li>
+                        <li>Custom task creation</li>
+                        <li>Recurring task scheduling</li>
+                        <li>Priority and deadline management</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Photo Verification</h3>
+                    <p class="feature-description">
+                        Children submit photos to prove task completion, creating transparency and accountability in the household.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Camera integration</li>
+                        <li>Parent approval system</li>
+                        <li>Photo quality validation</li>
+                        <li>Automatic processing</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Blockchain Rewards</h3>
+                    <p class="feature-description">
+                        Automatic KAIA cryptocurrency distribution upon task completion, teaching financial responsibility and providing real value.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Instant KAIA payments</li>
+                        <li>Smart contract automation</li>
+                        <li>Family reward pools</li>
+                        <li>Transaction transparency</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Gamification</h3>
+                    <p class="feature-description">
+                        Achievement system with badges, streaks, and leaderboards to motivate consistent task completion.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Achievement badges</li>
+                        <li>Completion streaks</li>
+                        <li>Family leaderboards</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
+                            <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">LINE Integration</h3>
+                    <p class="feature-description">
+                        Seamless integration with LINE messaging for notifications, family communication, and sharing achievements.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Task notifications</li>
+                        <li>Progress updates</li>
+                        <li>Family group sharing</li>
+                        <li>Achievement celebrations</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="12" y1="2" x2="12" y2="6"></line>
+                            <line x1="12" y1="18" x2="12" y2="22"></line>
+                            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                            <line x1="2" y1="12" x2="6" y2="12"></line>
+                            <line x1="18" y1="12" x2="22" y2="12"></line>
+                            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Financial Literacy</h3>
+                    <p class="feature-description">
+                        Teaching children about money management through savings goals, budgeting, and spending tracking features.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Savings goal setting</li>
+                        <li>Expense tracking</li>
+                        <li>Budget management</li>
+                        <li>Financial education</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="tech">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Technology</div>
+                <h2 class="section-title">Built with Modern Technology</h2>
+                <p class="section-description">
+                    Leveraging cutting-edge web technologies and blockchain infrastructure for scalability and security.
+                </p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Frontend</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <div class="tech-icon">⚛️</div>
+                            <span>React 18</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔺</div>
+                            <span>Next.js 14</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📘</div>
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🎨</div>
+                            <span>Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Backend</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <div class="tech-icon">🟢</div>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">⚡</div>
+                            <span>Express.js</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐘</div>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔺</div>
+                            <span>Prisma ORM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Blockchain</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <div class="tech-icon">⛓️</div>
+                            <span>Kaia Network</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📜</div>
+                            <span>Solidity</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">⚒️</div>
+                            <span>Hardhat</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🦄</div>
+                            <span>Ethers.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3 class="tech-category-title">Performance</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <div class="tech-icon">🦀</div>
+                            <span>Rust Services</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🗄️</div>
+                            <span>Redis Cache</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">☁️</div>
+                            <span>AWS S3</span>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔌</div>
+                            <span>LINE LIFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Development</div>
+                <h2 class="section-title">Project Roadmap</h2>
+                <p class="section-description">
+                    Our development journey from MVP to full-scale family task management platform.
+                </p>
+            </div>
+            <div class="roadmap-timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot completed"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Phase 1: Foundation</h3>
+                            <span class="timeline-duration">Weeks 1-6</span>
+                        </div>
+                        <p>Project setup, authentication, and core infrastructure development.</p>
+                        <ul>
+                            <li>✅ Development environment setup</li>
+                            <li>✅ LINE LIFF integration</li>
+                            <li>✅ Database schema design</li>
+                            <li>✅ Authentication system</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Phase 2: Core Features</h3>
+                            <span class="timeline-duration">Weeks 7-12</span>
+                        </div>
+                        <p>Task management, photo verification, and family dashboard implementation.</p>
+                        <ul>
+                            <li>🚧 Task creation and assignment</li>
+                            <li>📋 Photo upload and storage</li>
+                            <li>📋 Parent approval workflow</li>
+                            <li>📋 Basic dashboard interface</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Phase 3: Blockchain</h3>
+                            <span class="timeline-duration">Weeks 13-18</span>
+                        </div>
+                        <p>Smart contract deployment and KAIA reward distribution system.</p>
+                        <ul>
+                            <li>Smart contract development</li>
+                            <li>Wallet integration</li>
+                            <li>Automated reward distribution</li>
+                            <li>Transaction monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Phase 4: Launch</h3>
+                            <span class="timeline-duration">Weeks 19-24</span>
+                        </div>
+                        <p>Final polish, testing, and LINE Mini App store submission.</p>
+                        <ul>
+                            <li>UI/UX refinement</li>
+                            <li>Performance optimization</li>
+                            <li>Security audit</li>
+                            <li>LINE store submission</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Ready to Transform Your Family's Task Management?</h2>
+                    <p>
+                        Join the future of family organization with blockchain-powered rewards 
+                        and gamified task completion.
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://github.com/ngaan-project/ngaan" class="contact-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="mailto:hello@ngaan.app" class="contact-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span>Email</span>
+                        </a>
+                        <a href="https://line.me/ti/p/@ngaan" class="contact-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771z"/>
+                                <path d="M23.32 24L.68 24 12 0z"/>
+                            </svg>
+                            <span>LINE</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-visual">
+                    <div class="contact-decoration">
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🏆</span>
+                        <span class="logo-text">Ngaan</span>
+                    </div>
+                    <p>Making family chores fun with blockchain rewards.</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-stats">
+                        <div class="footer-stat">
+                            <span class="stat-value">2024</span>
+                            <span class="stat-label">Launch Year</span>
+                        </div>
+                        <div class="footer-stat">
+                            <span class="stat-value">MIT</span>
+                            <span class="stat-label">License</span>
+                        </div>
+                        <div class="footer-stat">
+                            <span class="stat-value">Open</span>
+                            <span class="stat-label">Source</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ngaan. Built with ❤️ for families worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
