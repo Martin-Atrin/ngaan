@@ -196,7 +196,7 @@ export interface LIFFProfile {
 }
 
 export interface LIFFContext {
-  type: 'utou' | 'room' | 'group';
+  type: 'utou' | 'room' | 'group' | 'none' | 'square_chat' | 'external';
   groupId?: string;
   roomId?: string;
   endpointUrl?: string;

@@ -28,7 +28,9 @@ const createTaskSchema = z.object({
   }).optional(),
 });
 
-const updateTaskSchema = createTaskSchema.partial();
+const updateTaskSchema = createTaskSchema.partial().extend({
+  status: z.enum(['DRAFT', 'ASSIGNED', 'IN_PROGRESS', 'SUBMITTED', 'APPROVED', 'REJECTED', 'COMPLETED', 'EXPIRED']).optional(),
+});
 
 const querySchema = z.object({
   page: z.string().transform(Number).pipe(z.number().int().min(1)).default('1'),

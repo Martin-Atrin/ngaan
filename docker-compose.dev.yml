@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ngaan-postgres
+    environment:
+      POSTGRES_DB: ngaan_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ngaan123
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres-init:/docker-entrypoint-initdb.d
+    networks:
+      - ngaan-network
+    restart: unless-stopped
+
+  postgres_shadow:
+    image: postgres:15-alpine
+    container_name: ngaan-postgres-shadow
+    environment:
+      POSTGRES_DB: ngaan_shadow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ngaan123
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_shadow_data:/var/lib/postgresql/data
+    networks:
+      - ngaan-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ngaan-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ngaan-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Development tools
+  adminer:
+    image: adminer:latest
+    container_name: ngaan-adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - ngaan-network
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+
+volumes:
+  postgres_data:
+  postgres_shadow_data:
+  redis_data:
+
+networks:
+  ngaan-network:
+    driver: bridge

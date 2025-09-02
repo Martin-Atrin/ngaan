@@ -244,7 +244,7 @@ export function generateToken(user: {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     issuer: 'ngaan-api',
     audience: 'ngaan-app',
-  });
+  } as jwt.SignOptions);
 }
 
 /**

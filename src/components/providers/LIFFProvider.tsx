@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { LIFFProfile, LIFFContext } from '@/types';
+import type { LIFFProfile, LIFFContext } from '@/types';
 
 interface LIFFContextType {
   liff: any;
